@@ -1,0 +1,12 @@
+{
+  "layers": [
+    45,
+    16,
+    8,
+    4,
+    1
+  ],
+  "n_params": 913,
+  "max_relative_error": 1.0283333477502691e-08,
+  "passed": true
+}

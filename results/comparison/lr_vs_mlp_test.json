@@ -1,0 +1,101 @@
+{
+  "test_n": 1057,
+  "test_n_churn": 281,
+  "threshold": 0.5,
+  "mlp_source": "results/mlp_results.json -> test_seed42 (saved by Student 5; not retrained)",
+  "pr_auc_definition": "sklearn.metrics.average_precision_score (step-wise average precision), the same convention as train_mlp.py",
+  "bootstrap": {
+    "n_resamples": 2000,
+    "seed": 42,
+    "type": "paired, stratified by class, on the fixed test set"
+  },
+  "confusion_matrices": {
+    "logistic_regression_B1": {
+      "tn": 709,
+      "fp": 67,
+      "fn": 133,
+      "tp": 148
+    },
+    "mlp_seed42": {
+      "tn": 715,
+      "fp": 61,
+      "fn": 153,
+      "tp": 128
+    }
+  },
+  "n_test_customers_with_different_0.5_decision": 52,
+  "pearson_r_of_probabilities": 0.9786579972984608,
+  "metrics": {
+    "accuracy": {
+      "logistic_regression_B1": 0.8107852412488175,
+      "mlp_seed42": 0.7975402081362346,
+      "difference_lr_minus_mlp": 0.013245033112582849,
+      "bootstrap_ci95_low": -0.0009460737937558861,
+      "bootstrap_ci95_high": 0.026490066225165587,
+      "ci_excludes_zero": false,
+      "mlp_5seed_mean": 0.8,
+      "mlp_5seed_std": 0.0048977025943405085
+    },
+    "precision": {
+      "logistic_regression_B1": 0.6883720930232559,
+      "mlp_seed42": 0.6772486772486772,
+      "difference_lr_minus_mlp": 0.011123415774578649,
+      "bootstrap_ci95_low": -0.02622615509239341,
+      "bootstrap_ci95_high": 0.04812991193864088,
+      "ci_excludes_zero": false,
+      "mlp_5seed_mean": 0.6819778423830903,
+      "mlp_5seed_std": 0.01151680298520487
+    },
+    "recall": {
+      "logistic_regression_B1": 0.5266903914590747,
+      "mlp_seed42": 0.4555160142348754,
+      "difference_lr_minus_mlp": 0.07117437722419928,
+      "bootstrap_ci95_low": 0.03558718861209964,
+      "bootstrap_ci95_high": 0.10676156583629898,
+      "ci_excludes_zero": true,
+      "mlp_5seed_mean": 0.4640569395017794,
+      "mlp_5seed_std": 0.018594093206566742
+    },
+    "f1": {
+      "logistic_regression_B1": 0.5967741935483871,
+      "mlp_seed42": 0.5446808510638298,
+      "difference_lr_minus_mlp": 0.052093342484557326,
+      "bootstrap_ci95_low": 0.017637240849621882,
+      "bootstrap_ci95_high": 0.08454745162040522,
+      "ci_excludes_zero": true,
+      "mlp_5seed_mean": 0.5521714203564141,
+      "mlp_5seed_std": 0.01522740377218943
+    },
+    "roc_auc": {
+      "logistic_regression_B1": 0.8448426092379939,
+      "mlp_seed42": 0.8425312763693731,
+      "difference_lr_minus_mlp": 0.002311332868620841,
+      "bootstrap_ci95_low": -0.004690308911472312,
+      "bootstrap_ci95_high": 0.009039077117804627,
+      "ci_excludes_zero": false,
+      "mlp_5seed_mean": 0.8441501265729905,
+      "mlp_5seed_std": 0.001521964403018673
+    },
+    "pr_auc": {
+      "logistic_regression_B1": 0.6582609336425557,
+      "mlp_seed42": 0.6536922117775258,
+      "difference_lr_minus_mlp": 0.004568721865029879,
+      "bootstrap_ci95_low": -0.012021015323615106,
+      "bootstrap_ci95_high": 0.022928462783562167,
+      "ci_excludes_zero": false,
+      "mlp_5seed_mean": 0.6556665838400473,
+      "mlp_5seed_std": 0.004670208209714173
+    },
+    "brier": {
+      "logistic_regression_B1": 0.1361374404747903,
+      "mlp_seed42": 0.13718030902546566,
+      "difference_lr_minus_mlp": -0.0010428685506753688,
+      "bootstrap_ci95_low": -0.0037787248121915937,
+      "bootstrap_ci95_high": 0.0017656197635768933,
+      "ci_excludes_zero": false,
+      "mlp_5seed_mean": 0.13686955891141012,
+      "mlp_5seed_std": 0.0007943842782463605
+    }
+  },
+  "note": "One fixed test split. Bootstrap intervals reflect test-sample uncertainty only."
+}

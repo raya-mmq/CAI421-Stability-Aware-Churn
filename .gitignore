@@ -1,0 +1,29 @@
+# --- Data: the dataset redistribution licence is unverified. Never commit customer-level data. ---
+data/raw/
+data/processed/
+*.csv.gz
+# per-customer prediction files written by train_logistic_regression.py (regenerate locally)
+results/logreg/predictions/
+
+# --- Python / environments ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+.pytest_cache/
+
+# --- Secrets and local settings ---
+.env
+*.env
+*.pem
+*.key
+.secrets/
+token*.txt
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,0 +1,12 @@
+# Tested on Python 3.13 (x86-64 Linux, CPU only) on 2026-10-30 by Student 4.
+# Exact versions used to regenerate the processed data and run every script in this repository.
+# preprocess.py / train_mlp.py originally declared only lower bounds (numpy>=1.26, pandas>=2.0,
+# scikit-learn>=1.4, matplotlib>=3.8); the MLP results in results/ were produced by Student 5
+# on Python 3.13.5 / NumPy 2.3.5.
+numpy==2.5.3
+pandas==3.0.5
+scikit-learn==1.9.1
+scipy==1.18.1
+joblib==1.6.0
+threadpoolctl==3.7.0
+matplotlib==3.11.2

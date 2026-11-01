@@ -1,0 +1,84 @@
+// CAI 421 - final pipeline architecture (Student 4). Render: python docs/architecture/render.py
+// Solid filled box  = implemented and executed (code + saved results in this repository)
+// Dashed white box  = planned / proposed, NOT yet implemented (no code in the repository)
+digraph G {
+  graph [rankdir=TB, splines=ortho, nodesep=0.35, ranksep=0.42, pad=0.25, bgcolor="white",
+         fontname="Inter", newrank=true];
+  node  [shape=box, style="rounded,filled", fontname="Inter", fontsize=10, margin="0.14,0.07",
+         color="#3d3d3a", fillcolor="#eef3fb", penwidth=1.1];
+  edge  [color="#52514e", arrowsize=0.6, penwidth=1.0, fontname="Inter", fontsize=8.5, fontcolor="#52514e"];
+
+  // ---------------- shared data ----------------
+  data [label=<<b>(1) IBM Telco Customer Churn</b><br/>Telco-Customer-Churn.csv · 7,043 customers × 21 columns<br/><font point-size="8.5" color="#52514e">SHA-256 16320c9c…055e91 verified · 26.5% churn</font>>,
+        fillcolor="#e8e7e2"];
+  prep [label=<<b>(2) Shared preprocessing</b> <font point-size="8.5" color="#52514e">preprocess.py</font><br/>drop customerID · TotalCharges blanks (11, tenure = 0) → 0<br/><b>stratified 70/15/15 split, seed 42</b>, made before any fitting<br/>StandardScaler (3 numeric) + one-hot (15 categorical) fitted on train only>];
+  feats [label=<<b>(3) 45 processed input features</b><br/>3 scaled numeric + SeniorCitizen + 41 one-hot · feature_groups.json (19 original features)<br/>train 4,930 · validation 1,056 · test 1,057 (fixed indices)>];
+
+  data -> prep -> feats;
+
+  // ---------------- prediction models ----------------
+  subgraph cluster_models {
+    label=<<b>Prediction models</b> <font color="#52514e">(trained on train; selected on validation only)</font>>;
+    fontsize=10; style="rounded,dashed"; color="#b4b2a9"; fontcolor="#0b0b0b"; margin=10; labelloc=b;
+
+    lr [label=<<b>(4) Baseline B1: Logistic regression</b><br/>scikit-learn · L2, lbfgs · C = 1.0<br/><font point-size="8.5" color="#52514e">C ∈ {10⁻³ … 10²} chosen by validation ROC-AUC</font>>,
+        fillcolor="#fde9df", color="#b4501f"];
+    mlp [label=<<b>(5) MLP baseline</b> (NumPy)<br/>45 → 32 ReLU → 1 sigmoid · 1,505 params<br/><font point-size="8.5" color="#52514e">Adam, BCE + L2 (10⁻⁴), early stopping on val BCE<br/>24-config grid by validation ROC-AUC · seed 42 reported<br/>retrained with seeds 42–46 for mean ± std</font>>,
+         fillcolor="#e3edfb", color="#2a5fa8"];
+  }
+  feats -> lr;
+  feats -> mlp;
+  {rank=same; lr; mlp;}
+
+  // ---------------- proposed decision layer ----------------
+  subgraph cluster_gate {
+    label=<<b>Proposed explanation-stability gate</b> <font color="#9a3412">(planned: not yet implemented)</font>>;
+    fontsize=10; style="rounded,dashed"; color="#c2410c"; fontcolor="#0b0b0b"; margin=10;
+    node [style="rounded,dashed", fillcolor="white", color="#7a7974", fontcolor="#3d3d3a"];
+
+    gate [label=<<b>(6) Five gate MLPs</b><br/>same 45-32-1 config, 5 independent seeds<br/><font point-size="8.5">(disjoint from seeds 42–46)</font>>];
+    shap [label=<<b>(8) SHAP per customer</b><br/>one fixed training background<br/>one-hot attributions summed → 19 original features>];
+    stab [label=<<b>(9) Explanation stability</b><br/>Tₖ = top-3 features of gate model k<br/>S(x) = mean pairwise Jaccard(Tⱼ, Tₖ), K = 5>];
+    conf [label=<<b>Prediction confidence</b><br/>p̄(x) = mean churn probability<br/>of the 5 gate MLPs>];
+    dec  [label=<<b>(10) Decision gate</b><br/>p̄(x) ≥ τₚ  and  S(x) ≥ τₛ ?<br/><font point-size="8.5">τ chosen on validation per coverage (50/70/90%)</font>>, shape=box];
+    rec  [label=<<b>(11) Recommend action</b><br/>top actionable driver → predefined<br/>non-causal suggestion (no demographics)>];
+    hum  [label=<<b>(11) Human review</b><br/>abstain: defer customer>];
+    evalm [label=<<b>(7) Five evaluation MLPs</b><br/>further disjoint seeds, used only to measure<br/>action agreement across retrained models>];
+
+    gate -> shap -> stab -> dec;
+    gate -> conf -> dec;
+    dec -> rec [xlabel="yes "];
+    dec -> hum [xlabel="no "];
+    {rank=same; shap; conf;}
+    {rank=same; rec; hum; evalm;}
+  }
+  feats -> gate [style=dashed];
+
+  // ---------------- evaluation ----------------
+  subgraph cluster_eval {
+    label=<<b>(12) Held-out evaluation</b> <font color="#52514e">(test set used once, threshold 0.5)</font>>;
+    fontsize=10; style="rounded,dashed"; color="#b4b2a9"; margin=10;
+    ev1 [label=<<b>B1 vs MLP</b> <font point-size="8.5" color="#2f6f3e">(done)</font><br/>accuracy · precision · recall · F1 (churn)<br/>ROC-AUC · PR-AUC (average precision) · Brier<br/>confusion matrix · paired bootstrap 95% CI>,
+         fillcolor="#e7f2e9", color="#2f6f3e"];
+    ev2 [label=<<b>Decision policies</b> <font point-size="8.5" color="#9a3412">(planned)</font><br/>B2 no abstention · B3 confidence-only<br/>vs proposed gate at matched coverage<br/>agreement, abstention rate, bootstrap CI>,
+         style="rounded,dashed", fillcolor="white", color="#7a7974", fontcolor="#3d3d3a"];
+    {rank=same; ev1; ev2;}
+  }
+  lr -> ev1;
+  mlp -> ev1;
+  rec -> ev2 [style=dashed];
+  hum -> ev2 [style=dashed];
+  evalm -> ev2 [style=dashed, xlabel="agreement "];
+
+  // ---------------- legend ----------------
+  subgraph cluster_legend {
+    label=""; style="rounded"; color="#e4e3df"; margin=6;
+    node [fontsize=8.5, margin="0.08,0.03", height=0.25];
+    l1 [label="Implemented and run", fillcolor="#eef3fb"];
+    l2 [label="Planned, not yet implemented", style="rounded,dashed", fillcolor="white", color="#7a7974"];
+    l1 -> l2 [style=invis];
+    {rank=same; l1; l2;}
+  }
+  ev1 -> l1 [style=invis];
+  ev2 -> l2 [style=invis];
+}

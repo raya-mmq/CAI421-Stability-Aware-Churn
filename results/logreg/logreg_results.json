@@ -1,0 +1,115 @@
+{
+  "model": "LogisticRegression (scikit-learn)",
+  "selected_params": {
+    "C": 1.0,
+    "penalty": "l2 (scikit-learn default)",
+    "solver": "lbfgs",
+    "max_iter": 10000,
+    "tol": 0.0001,
+    "fit_intercept": true,
+    "class_weight": null,
+    "random_state": 42
+  },
+  "input_dtype": "float64",
+  "intercept": -0.5928855748120816,
+  "n_parameters": 46,
+  "n_iter": 36,
+  "selection": {
+    "split": "validation",
+    "metric": "ROC-AUC",
+    "grid_C": [
+      0.001,
+      0.01,
+      0.1,
+      1.0,
+      10.0,
+      100.0
+    ],
+    "rule": "highest validation ROC-AUC; ties broken by the smaller C (stronger regularisation)"
+  },
+  "threshold": 0.5,
+  "pr_auc_definition": "sklearn.metrics.average_precision_score (step-wise average precision), the same convention as train_mlp.py",
+  "metric_function": "train_mlp.metrics (identical to the MLP)",
+  "n": {
+    "train": 4930,
+    "val": 1056,
+    "test": 1057
+  },
+  "n_churn": {
+    "train": 1308,
+    "val": 280,
+    "test": 281
+  },
+  "n_features": 45,
+  "train": {
+    "accuracy": 0.8042596348884381,
+    "precision": 0.6560509554140127,
+    "recall": 0.5512232415902141,
+    "f1": 0.5990859991690901,
+    "roc_auc": 0.8487839561834997,
+    "pr_auc": 0.6673543920497045,
+    "brier": 0.13382695171612827,
+    "confusion_matrix": {
+      "tn": 3244,
+      "fp": 378,
+      "fn": 587,
+      "tp": 721
+    }
+  },
+  "val": {
+    "accuracy": 0.8068181818181818,
+    "precision": 0.6472868217054264,
+    "recall": 0.5964285714285714,
+    "f1": 0.620817843866171,
+    "roc_auc": 0.8454459683357879,
+    "pr_auc": 0.6310553964677429,
+    "brier": 0.13663175391265586,
+    "confusion_matrix": {
+      "tn": 685,
+      "fp": 91,
+      "fn": 113,
+      "tp": 167
+    }
+  },
+  "test": {
+    "accuracy": 0.8107852412488175,
+    "precision": 0.6883720930232559,
+    "recall": 0.5266903914590747,
+    "f1": 0.5967741935483871,
+    "roc_auc": 0.8448426092379939,
+    "pr_auc": 0.6582609336425557,
+    "brier": 0.1361374404747903,
+    "confusion_matrix": {
+      "tn": 709,
+      "fp": 67,
+      "fn": 133,
+      "tp": 148
+    }
+  },
+  "test_default_C1_reference": {
+    "accuracy": 0.8107852412488175,
+    "precision": 0.6883720930232559,
+    "recall": 0.5266903914590747,
+    "f1": 0.5967741935483871,
+    "roc_auc": 0.8448426092379939,
+    "pr_auc": 0.6582609336425557,
+    "brier": 0.1361374404747903,
+    "confusion_matrix": {
+      "tn": 709,
+      "fp": 67,
+      "fn": 133,
+      "tp": 148
+    }
+  },
+  "data_integrity": {
+    "all_processed_files_match_reference": true,
+    "n_files_checked": 9
+  },
+  "environment": {
+    "python": "3.13.18",
+    "numpy": "2.5.3",
+    "pandas": "3.0.5",
+    "scikit_learn": "1.9.1",
+    "platform": "x86_64 Linux"
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "_comment": "CAI 421 shared reproducibility settings. Values for the data pipeline and MLP are COPIED from preprocess.py / train_mlp.py for documentation only; those scripts remain the source of truth and do not read this file. train_logistic_regression.py reads the 'logistic_regression' and 'data_integrity' blocks.",
+
+  "dataset": {
+    "name": "IBM Telco Customer Churn",
+    "file": "data/raw/Telco-Customer-Churn.csv",
+    "source_repository": "https://github.com/IBM/telco-customer-churn-on-icp4d",
+    "source_path_in_repository": "data/Telco-Customer-Churn.csv",
+    "sha256": "16320c9c1ec72448db59aa0a26a0b95401046bef5d02fd3aeb906448e3055e91",
+    "n_records": 7043,
+    "redistributed_in_this_repository": false
+  },
+
+  "shared_pipeline": {
+    "script": "preprocess.py",
+    "owner": "Student 3",
+    "seed": 42,
+    "split": "stratified 70/15/15 (train_test_split twice, stratify=y, random_state=42)",
+    "n_train": 4930,
+    "n_val": 1056,
+    "n_test": 1057,
+    "n_features": 45,
+    "feature_order_file": "data/processed/feature_names.json",
+    "numeric_scaled": ["tenure", "MonthlyCharges", "TotalCharges"],
+    "binary_kept": ["SeniorCitizen"],
+    "categorical_one_hot": 15,
+    "totalcharges_rule": "11 blank values (all tenure = 0) set to 0",
+    "fitted_on": "training split only"
+  },
+
+  "mlp_reference": {
+    "script": "train_mlp.py",
+    "owner": "Student 5",
+    "framework": "NumPy (explicit forward/backward pass)",
+    "architecture": [45, 32, 1],
+    "activations": ["ReLU", "Sigmoid"],
+    "optimizer": "Adam (lr 0.003, beta1 0.9, beta2 0.999, eps 1e-8)",
+    "batch_size": 128,
+    "weight_decay": 0.0001,
+    "max_epochs": 300,
+    "early_stopping_patience": 20,
+    "selection_metric": "validation ROC-AUC over a 24-config grid",
+    "reported_seed": 42,
+    "robustness_seeds": [42, 43, 44, 45, 46],
+    "threshold": 0.5
+  },
+
+  "logistic_regression": {
+    "owner": "Student 4",
+    "seed": 42,
+    "threshold": 0.5,
+    "fit_on": "train",
+    "selection_split": "val",
+    "selection_metric": "roc_auc",
+    "selection_rule": "highest validation ROC-AUC; ties broken by the smaller C (stronger regularisation)",
+    "regularisation": "L2 (scikit-learn default; penalty= is deprecated from 1.8 and therefore not passed)",
+    "fixed_params": {
+      "solver": "lbfgs",
+      "max_iter": 10000,
+      "tol": 0.0001,
+      "fit_intercept": true,
+      "class_weight": null,
+      "random_state": 42
+    },
+    "grid": {
+      "C": [0.001, 0.01, 0.1, 1.0, 10.0, 100.0]
+    },
+    "pr_auc_definition": "sklearn.metrics.average_precision_score (step-wise average precision), the same convention as train_mlp.py",
+    "bootstrap": {
+      "n_resamples": 2000,
+      "seed": 42,
+      "type": "paired, stratified by class, on the fixed test set"
+    }
+  },
+
+  "data_integrity": {
+    "_comment": "SHA-256 of the processed files produced by preprocess.py from the reference CSV (verified on 2026-10-30 with scikit-learn 1.9.1 / pandas 3.0.5; byte-identical to the files shipped by Students 3 and 5).",
+    "processed_sha256": {
+      "X_train.csv": "a6b578f765420e6e37056ebd0ba5d7e17a7a0a2427f8d8598b818ffec2c2dc17",
+      "X_val.csv": "4ca1a96c4701457696dc531e05603fa554abe72454b31365935b75ea01e5a7b9",
+      "X_test.csv": "ef204e59bfb0c59ff5a6f87f07da887ad85ba7078da4ed9a3035204e18475b6d",
+      "y_train.csv": "7775fb778d02c9aa0ce539c5cd52463b726723b11790914697e417f09181b6ff",
+      "y_val.csv": "6643a241527b0aac3bcc2b6fba2c92cee54096a43ab093307efc19ae35af9764",
+      "y_test.csv": "9f5cafe2406ec70bcc2c58b244ce289e0463fa9333e2a777e0958d833211a4e6",
+      "idx_train.csv": "b5c066eb94b28df2abb87e7ff4f97eb285279d44c2196a02a72ad964e684960f",
+      "idx_val.csv": "dde2c962cb91b77b1d425473c4962ee73d6b6e5ae7131a13dde86be9a5e4135a",
+      "idx_test.csv": "0c31a713cef7b8665e051590b47d899f02ec3ef12171f8634a1841c7b1deda12"
+    }
+  }
+}
