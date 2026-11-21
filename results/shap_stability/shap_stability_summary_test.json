@@ -1,0 +1,61 @@
+{
+  "split": "test",
+  "method": "Kernel SHAP (kernel_shap_numpy.py; exact enumeration of coalition sizes 1, 2, M-2, M-1 plus 2000 sampled complementary pairs)",
+  "backend": "numpy",
+  "gate_seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "architecture": [
+    45,
+    32,
+    1
+  ],
+  "training_parameters": {
+    "lr": 0.003,
+    "batch_size": 128,
+    "weight_decay": 0.0001,
+    "max_epochs": 300,
+    "patience": 20
+  },
+  "background_size": 50,
+  "background_seed": 2026,
+  "shap_random_seed": 2719,
+  "link": "identity (probability output)",
+  "top_k": 3,
+  "encoded_features": 45,
+  "original_features": 19,
+  "aggregation": "sum signed one-hot SHAP values within each original feature; rank by absolute aggregated value",
+  "stability": "mean pairwise Jaccard overlap of top-3 sets across 10 gate-model pairs",
+  "n_seed_pairs": 10,
+  "efficiency_check": {
+    "mean_abs_error": 2.259038312767432e-17,
+    "max_abs_error": 2.220446049250313e-16
+  },
+  "monte_carlo_noise_check": {
+    "seed": 1,
+    "n_customers": 200,
+    "mean_same_model_jaccard": 0.99,
+    "share_identical_top3": 0.98,
+    "max_abs_shap_difference": 0.005561429518390601
+  },
+  "stability_summary": {
+    "n_customers": 1057,
+    "mean": 0.6930368968779564,
+    "std": 0.17020028186797245,
+    "median": 0.65,
+    "q25": 0.6,
+    "q75": 0.8,
+    "min": 0.25,
+    "max": 1.0,
+    "share_below_0_5": 0.130558183538316,
+    "share_at_least_0_5": 0.8694418164616841,
+    "share_identical_top3_all_models": 0.16461684011352887,
+    "share_same_top1_all_models": 0.6442762535477767
+  },
+  "runtime_seconds": 582.5,
+  "full_split": true
+}
