@@ -1,0 +1,163 @@
+{
+  "ensemble_metrics_test": {
+    "roc_auc": 0.8458882122023701,
+    "pr_auc": 0.6563847293350503,
+    "f1_churn_at_0.5": 0.5485232067510548,
+    "brier": 0.1361116186466691
+  },
+  "n_test": 1057,
+  "targets": {
+    "0.5": {
+      "feasible": true,
+      "B3": {
+        "coverage": 0.4957426679280984,
+        "abstention": 0.5042573320719016,
+        "n_recommended": 524,
+        "agreement": 0.9190839694656489,
+        "unanimous": 0.8396946564885496,
+        "outreach_to_nonchurn": 0.5343511450381679
+      },
+      "gate": {
+        "coverage": 0.4806054872280038,
+        "abstention": 0.5193945127719962,
+        "n_recommended": 508,
+        "agreement": 0.9183070866141733,
+        "unanimous": 0.8366141732283464,
+        "outreach_to_nonchurn": 0.5964566929133859
+      },
+      "diff_gate_minus_B3": {
+        "coverage": -0.015137180700094621,
+        "agreement": -0.000776882851475591,
+        "unanimous": -0.0030804832602031595,
+        "outreach_to_nonchurn": 0.06210554787521794
+      },
+      "ci95": {
+        "coverage": [
+          -0.04446546830652787,
+          0.01419110690633868
+        ],
+        "agreement": [
+          -0.015072587336513113,
+          0.012951328035569755
+        ],
+        "unanimous": [
+          -0.031641779767292225,
+          0.023733058007518678
+        ],
+        "outreach_to_nonchurn": [
+          0.03557034370510172,
+          0.09050568419677715
+        ]
+      },
+      "thresholds": {
+        "b3_tau_p": 0.1894982,
+        "gate_tau_s": 0.6,
+        "gate_tau_p": 0.0877384
+      }
+    },
+    "0.7": {
+      "feasible": true,
+      "B3": {
+        "coverage": 0.674550614947966,
+        "abstention": 0.325449385052034,
+        "n_recommended": 713,
+        "agreement": 0.9022440392706872,
+        "unanimous": 0.8036465638148668,
+        "outreach_to_nonchurn": 0.6199158485273493
+      },
+      "gate": {
+        "coverage": 0.6830652790917692,
+        "abstention": 0.3169347209082308,
+        "n_recommended": 722,
+        "agreement": 0.8678670360110802,
+        "unanimous": 0.7340720221606648,
+        "outreach_to_nonchurn": 0.703601108033241
+      },
+      "diff_gate_minus_B3": {
+        "coverage": 0.008514664143803197,
+        "agreement": -0.03437700325960702,
+        "unanimous": -0.06957454165420196,
+        "outreach_to_nonchurn": 0.08368525950589178
+      },
+      "ci95": {
+        "coverage": [
+          -0.0255439924314097,
+          0.042573320719016094
+        ],
+        "agreement": [
+          -0.048279523129297446,
+          -0.020813394263833246
+        ],
+        "unanimous": [
+          -0.09704351282818811,
+          -0.0440960041165348
+        ],
+        "outreach_to_nonchurn": [
+          0.06243361604748197,
+          0.10533134217233123
+        ]
+      },
+      "thresholds": {
+        "b3_tau_p": 0.0675858,
+        "gate_tau_s": 0.6,
+        "gate_tau_p": 0.0106154
+      }
+    },
+    "0.9": {
+      "feasible": true,
+      "B3": {
+        "coverage": 0.8968779564806055,
+        "abstention": 0.10312204351939447,
+        "n_recommended": 948,
+        "agreement": 0.8554852320675106,
+        "unanimous": 0.7109704641350211,
+        "outreach_to_nonchurn": 0.7046413502109705
+      },
+      "gate": {
+        "coverage": 0.9035004730368968,
+        "abstention": 0.09649952696310315,
+        "n_recommended": 955,
+        "agreement": 0.8449214659685865,
+        "unanimous": 0.6921465968586388,
+        "outreach_to_nonchurn": 0.7099476439790576
+      },
+      "diff_gate_minus_B3": {
+        "coverage": 0.0066225165562913135,
+        "agreement": -0.010563766098924066,
+        "unanimous": -0.0188238672763823,
+        "outreach_to_nonchurn": 0.005306293768087111
+      },
+      "ci95": {
+        "coverage": [
+          -0.0056764427625354275,
+          0.018921475875118277
+        ],
+        "agreement": [
+          -0.015195518598582893,
+          -0.006373013323694027
+        ],
+        "unanimous": [
+          -0.026800524149404543,
+          -0.011557626927613352
+        ],
+        "outreach_to_nonchurn": [
+          0.0008075980635844471,
+          0.009868800400848407
+        ]
+      },
+      "thresholds": {
+        "b3_tau_p": 0.0070046,
+        "gate_tau_s": 0.4,
+        "gate_tau_p": 0.004141
+      }
+    }
+  },
+  "B2": {
+    "coverage": 0.9224219489120151,
+    "abstention": 0.07757805108798488,
+    "n_recommended": 975,
+    "agreement": 0.8452307692307692,
+    "unanimous": 0.6933333333333334,
+    "outreach_to_nonchurn": 0.7128205128205128
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "risk_floor": 0.0,
+  "grid": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9,
+    1.0
+  ],
+  "n_val": 1056,
+  "max_possible_coverage_val": 0.9299242424242424,
+  "targets": {
+    "0.5": {
+      "feasible": true,
+      "b3_tau_p": 0.1894982,
+      "gate_tau_s": 0.6,
+      "gate_tau_p": 0.0877384,
+      "val_cov_b3": 0.5,
+      "val_cov_gate": 0.5
+    },
+    "0.7": {
+      "feasible": true,
+      "b3_tau_p": 0.0675858,
+      "gate_tau_s": 0.6,
+      "gate_tau_p": 0.0106154,
+      "val_cov_b3": 0.7007575757575758,
+      "val_cov_gate": 0.7007575757575758
+    },
+    "0.9": {
+      "feasible": true,
+      "b3_tau_p": 0.0070046,
+      "gate_tau_s": 0.4,
+      "gate_tau_p": 0.004141,
+      "val_cov_b3": 0.9005681818181818,
+      "val_cov_gate": 0.9005681818181818
+    }
+  }
+}
