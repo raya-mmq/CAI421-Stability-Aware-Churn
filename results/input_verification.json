@@ -1,0 +1,14 @@
+{
+  "val": {
+    "n": 1056,
+    "order_matches_split_index": true,
+    "stability_max_abs_diff": 0.0,
+    "stability_mean": 0.6858901515151514
+  },
+  "test": {
+    "n": 1057,
+    "order_matches_split_index": true,
+    "stability_max_abs_diff": 0.0,
+    "stability_mean": 0.6930368968779564
+  }
+}
