@@ -1,0 +1,7 @@
+,value
+n_actionable,975.0
+spearman_S_vs_eval_agreement,-0.08808137045301354
+spearman_pbar_vs_eval_agreement,0.39144275031288533
+spearman_S_vs_pbar,-0.1964871653412149
+spearman_gate_action_agreement_vs_eval_agreement,0.7443556594259152
+gate_action_equals_eval_action_share,0.8808205128205128
