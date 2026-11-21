@@ -128,3 +128,38 @@ SHA-256 values in `configs/experiment_config.json`, so B1 can only run on the ex
 
 AI coding support was used to prepare Student 4's scripts, configuration and documentation, as required to be
 disclosed in the course appendix. All reported numbers were produced by running the code in this repository.
+
+
+---
+
+## Final submission (Checkpoint 2 → final)
+
+The final-stage code has been merged into this repository. All Checkpoint 2 files (`train_mlp.py`, `gradient_check.py`, `train_logistic_regression.py`, `compare_models.py`, `reproduce.sh`, `configs/`, `docs/architecture/`, baseline results) are kept unchanged.
+
+**Research question.** Does abstaining on customers with unstable SHAP explanations make the suggested retention action more consistent across independently trained models, at the same coverage as confidence-only abstention?
+
+**Main result (negative).** Adding a stability threshold did **not** improve action agreement over confidence-only abstention at 50%, 70% or 90% coverage (paired bootstrap 95% CIs, test n = 1,057).
+
+### Final-stage scripts
+
+| Script | Owner | Output |
+|---|---|---|
+| `kernel_shap_numpy.py` | Student 2 | SHAP self-test |
+| `run_shap_stability.py` | Student 2 | `results/shap_stability/` |
+| `run_eval_seed.py`, `build_gate_inputs.py`, `abstention_gate.py` | Student 3 | `results/gate/` |
+| `make_shap_report.py` | Student 2 | `figures/shap_*.png` |
+| `evaluate_results.py`, `make_results_section.py` | Student 4 | `tables/`, `figures/fig_*.png`, `results/results_summary.json` |
+| `tests/gradcheck.py`, `run_all.sh`, docs | Student 5 | backprop check, pipeline, reproducibility notes |
+
+### Reproduce the final stage
+
+```bash
+pip install -r requirements.txt
+# put Telco-Customer-Churn.csv in data/raw/ (see docs/DATA.md; SHA-256 is checked)
+bash run_all.sh
+```
+
+About 30–40 minutes on 2 CPU cores. Seeds: split 42 · gate models 1–5 · evaluation models 101–105 · SHAP background 2026 · bootstrap 42. Verification: `docs/REPRODUCTION_CHECK.md`.
+
+**Data.** Raw data, processed splits and per-customer outputs are not committed (the CSV's licence is not stated).
+
